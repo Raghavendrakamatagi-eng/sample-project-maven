@@ -7,11 +7,3 @@ trigger:
 - master
 
 pool: KMT
-
-- task: SynopsysDetectTask@7
-  inputs:
-    DetectArguments: |
-      set DETECT_LATEST_RELEASE_VERSION=7.0.0                                                                      
-      powershell "[Net.ServicePointManager]::SecurityProtocol = 'tls12'; irm https://detect.synopsys.com/detect7.ps1?$(Get-Random) | iex; detect"
-      --blackduck.url="https://iaas-c07-53-136-226-109.con-04.emea.dc.corpintra.net/" --blackduck.api.token=NzhlMWQyMzUtODQ1Ni00MjcwLWI1YjktOTNlNWUxNmZmNDRjOmEwNDdiYjY4LWViYTYtNDFmMC1iMjA0LTgxOGYxODg3MjZiOA== --detect.timeout="300" --detect.project.name="NPMTest_azure" --detect.project.version.name="4.0" --detect.code.location.name="angular-event-view-cli-main" --detect.detector.search.depth=10 --blackduck.trust.cert=true --detect.blackduck.signature.scanner.snippet.matching="SNIPPET_MATCHING" --detect.blackduck.signature.scanner.upload.source.mode="true" --detect.blackduck.signature.scanner.license.search="true" --detect.blackduck.signature.scanner.copyright.search="true" --detect.npm.include.dev.dependencies=”false” --detect.npm.path=C:\Program Files\nodejs\node.exe
-    DetectVersion: '7.0.0'
