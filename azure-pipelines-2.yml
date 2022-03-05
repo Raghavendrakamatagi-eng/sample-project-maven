@@ -18,9 +18,8 @@ steps:
     goals: 'clean install'
     mavenOptions: -DskipTests=true
     publishJUnitResults: false
-    maven.environmentPath= C:\Users\RKAMATA\Documents\apache-maven-3.8.4-bin\apache-maven-3.8.4\bin\mvn.cmd
     javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.11'
+    jdkVersionOption: '1.8'
     mavenVersionOption: 'Default'
     mavenAuthenticateFeed: false
     effectivePomSkip: false
