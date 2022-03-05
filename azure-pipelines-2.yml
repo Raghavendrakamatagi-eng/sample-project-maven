@@ -8,18 +8,18 @@ name: 'whitesource-ua-azdo-maven'
 trigger:
 - master
 
-pool: KMT
+pool:
+  vmImage: 'ubuntu-latest'
 
 steps:
 - task: Maven@3
   inputs:
-    
     mavenPomFile: 'pom.xml'
     goals: 'clean install'
     mavenOptions: -DskipTests=true
     publishJUnitResults: false
     javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
+    jdkVersionOption: '1.11'
     mavenVersionOption: 'Default'
     mavenAuthenticateFeed: false
     effectivePomSkip: false
@@ -36,6 +36,7 @@ steps:
         echo Starting WhiteSource Scan
         java -jar wss-unified-agent.jar
       fi
+
   env:
     WS_APIKEY: $(B82cbe2ff08f46caab283e3ffdb7008b6bb4c957d159474bac53fc794e0b8a3e)
     WS_USERKEY: $(c4a2d2e6887747719f59d642de8733655c3b0c94f0974ef1a730399c9fd056f2)
