@@ -13,12 +13,13 @@ pool: KMT
 steps:
 - task: Maven@3
   inputs:
+    maven.environmentPath= 'C:\Users\RKAMATA\Documents\apache-maven-3.8.4-bin\apache-maven-3.8.4\bin\mvn.cmd'
     mavenPomFile: 'pom.xml'
     goals: 'clean install'
     mavenOptions: -DskipTests=true
     publishJUnitResults: false
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.11'
+    #javaHomeOption: 'JDKVersion'
+    #jdkVersionOption: '1.11'
     mavenVersionOption: 'Default'
     mavenAuthenticateFeed: false
     effectivePomSkip: false
