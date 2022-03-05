@@ -8,8 +8,7 @@ name: 'whitesource-ua-azdo-maven'
 trigger:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
+pool: KMT
 
 steps:
 - task: Maven@3
