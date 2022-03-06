@@ -1,0 +1,40 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+- master
+
+pool: KMT
+
+steps:
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'package'
+
+- script: |
+      echo Downloading WhiteSource Unified Agent
+      curl -LJO https://unified-agent.s3.amazonaws.com/wss-unified-agent.jar
+
+      if [[ "$(curl -sL https://unified-agent.s3.amazonaws.com/wss-unified-agent.jar.sha256)" != "$(sha256sum wss-unified-agent.jar)" ]] ; then
+        echo "Integrity Check Failed"
+      else
+        echo "Integrity Check Passed"
+        echo Starting WhiteSource Scan
+        java -jar wss-unified-agent.jar
+      fi
+  env:
+    WS_APIKEY: $(b82cbe2ff08f46caab283e3ffdb7008b6bb4c957d159474bac53fc794e0b8a3)
+    WS_USERKEY: $(5cdfa5962acd45908fa55a56609c1ab3559eb573d8b94255b9ca31b540f7b407)
+    WS_WSS_URL: https://app-eu.whitesourcesoftware.com/agent
+    WS_PRODUCTNAME: AZDO_$(System.TeamProject)
+    WS_PROJECTNAME: $(Build.Repository.Name)_$(Build.SourceBranchName)
+  displayName: 'WhiteSource Scan'
