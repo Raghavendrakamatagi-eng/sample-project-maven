@@ -5,21 +5,20 @@ trigger:
 
 pool: KMT
 
-#steps:
+steps:
 #- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    goals: 'clean install'
-    mavenOptions: -DskipTests=true
-    publishJUnitResults: false
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.11'
-    mavenVersionOption: 'Default'
-    mavenAuthenticateFeed: false
-    effectivePomSkip: false
-    sonarQubeRunAnalysis: false
+  #inputs:
+   #mavenPomFile: 'pom.xml'
+    #goals: 'clean install'
+    #mavenOptions: -DskipTests=true
+    #publishJUnitResults: false
+    #javaHomeOption: 'JDKVersion'
+    #jdkVersionOption: '1.11'
+    #mavenVersionOption: 'Default'
+    #mavenAuthenticateFeed: false
+    #sonarQubeRunAnalysis: false
 
-- script: |
+- script:
       echo Downloading WhiteSource Unified Agent
       curl -LJO https://unified-agent.s3.amazonaws.com/wss-unified-agent.jar
       if [[ "$(curl -sL https://unified-agent.s3.amazonaws.com/wss-unified-agent.jar.sha256)" != "$(sha256sum wss-unified-agent.jar)" ]] ; then
