@@ -1,0 +1,29 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'package'
+
+
+- task: CmdLine@2
+  inputs:
+    script: |
+      [Net.ServicePointManager]::SecurityProtocol = 'tls12'; $Env:DETECT_EXIT_CODE_PASSTHRU=1; irm https://detect.synopsys.com/detect7.ps1?$(Get-Random) | iex; detect --blackduck.url="https://iaas-c07-53-136-226-109.con-04.emea.dc.corpintra.net/" --blackduck.api.token=NTg1MGNiM2ItNGRiNC00ZDg0LTg3OWQtNjEyZTdlOTQ2MDUxOmU3Yzg2YTM1LWQ5Y2YtNDVjYy05YjNhLWNkMzhkNDk5NGY4MQ==
+      --detect.timeout="300" --detect.project.name="FOSS_SCAN_Azure_TEST" --detect.project.version.name="1.0" --detect.code.location.name="AITMCloudService" --detect.detector.search.depth=10 --blackduck.trust.cert=true --detect.blackduck.signature.scanner.snippet.matching="SNIPPET_MATCHING" --detect.blackduck.signature.scanner.upload.source.mode="true" --detect.blackduck.signature.scanner.license.search="true" --detect.blackduck.signature.scanner.copyright.search="true" --detect.maven.included.scopes=runtime --detect.maven.included.scopes=compile --detect.maven.path=C:\Users\RKAMATA\Documents\apache-maven-3.8.4-bin\apache-maven-3.8.4\bin\mvn.cmd --detect.tools=SIGNATURE_SCAN --detect.tools=DETECTOR --detect.excluded.directories=Test,test,doc
