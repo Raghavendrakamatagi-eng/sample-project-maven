@@ -18,5 +18,5 @@ steps:
     DetectArguments: |
       set DETECT_LATEST_RELEASE_VERSION=7.0.0                                                                      
       powershell "[Net.ServicePointManager]::SecurityProtocol = 'tls12'; irm https://detect.synopsys.com/detect7.ps1?$(Get-Random) | iex; detect"
-      --detect.timeout="300" --detect.project.name="NPMTest_azure" --detect.project.version.name="9.0"  --detect.detector.search.depth=10 --blackduck.trust.cert=true --detect.blackduck.signature.scanner.snippet.matching="SNIPPET_MATCHING" --detect.blackduck.signature.scanner.upload.source.mode="true" --detect.blackduck.signature.scanner.license.search="true" --detect.blackduck.signature.scanner.copyright.search="true" --detect.tools=SIGNATURE_SCAN --detect.tools=DETECTOR
+      --detect.timeout="300" --detect.project.name="NPMTest_azure" --detect.project.version.name="10.0"  --detect.detector.search.depth=10 --blackduck.trust.cert=true --detect.blackduck.signature.scanner.snippet.matching="SNIPPET_MATCHING" --detect.blackduck.signature.scanner.upload.source.mode="true" --detect.blackduck.signature.scanner.license.search="true" --detect.blackduck.signature.scanner.copyright.search="true" --detect.tools=SIGNATURE_SCAN --detect.tools=DETECTOR --detect.maven.path=C:\Users\RKAMATA\Documents\apache-maven-3.8.4-bin\apache-maven-3.8.4\bin\mvn.cmd
     DetectVersion: '7.0.0'
